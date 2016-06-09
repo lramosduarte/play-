@@ -1,0 +1,7 @@
+New log file opened at Thu Jun 09 14:56:49 BRT 2016 by 24876@sisqualis-pc
+Taking next connection to: 45065
+New client attempting to connect on port: 42232-45065
+  Address = /127.0.1.1:45065
+This client on port 42232 has uuid 28d601cc-c788-4232-bfff-3b277aa171c0 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-28d601cc-c788-4232-bfff-3b277aa171c0
+Taking next connection to: 45065
