@@ -27,9 +27,13 @@
                             <li class="collection-item">
                                 <span class="" style="display: none;">@item.getId</span>
                                 <span class="flow-text">@item.getDescricao</span>
-                                <div class="secondary-content">
-                                        <i class="material-icons">delete</i>
-                                </div>
+                                @form(routes.TarefasController.remover(item.getId)) {
+                                    <div class="secondary-content">
+                                        <button type="submit" class="" name="button">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </div>
+                                }
                             </li>
                         }
                     </ul>

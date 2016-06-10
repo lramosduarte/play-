@@ -38,23 +38,36 @@ public class Tarefas {
         return descricao;
     }
 
+
     public Long getId(){
         return id;
     }
+
 
     public void setId(Long id){
         this.id = id;
     }
 
+
     public static void adicionar(Tarefas tarefa){
         JPA.em().persist(tarefa);
     }
+
+
+    public static void remover(Long id){
+        Tarefas tarefa = JPA.em().find(Tarefas.class, id);
+        JPA.em().remove(tarefa);
+        Logger.debug("tarefa deletada", tarefa);
+    }
+
 
     public static List<Tarefas> listar(){
         Query query = JPA.em().createQuery("select e from Tarefas e");
         List<Tarefas> tarefas = query.getResultList();
         return tarefas;
     }
+
+
 
     public static Tarefas toTarefa(String descricao){
         Tarefas tarefa = new Tarefas();
