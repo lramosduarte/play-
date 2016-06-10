@@ -3,25 +3,30 @@ package models;
 import java.util.*;
 
 import play.data.validation.Constraints.*;
+import play.Logger;
+import play.db.jpa.JPA;
 
 import javax.persistence.*;
 
-@Entity
-public class Tarefas{
 
-    private static Long idAutoIncrement = 0L;
+@Entity
+@Table(name="TAREFAS")
+public class Tarefas {
+
+    // private static Long idAutoIncrement = 0L;
+
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    public Long id;
+    @GeneratedValue
+    private Long id;
 
     @Required
-    public String descricao;
+    private String descricao;
 
-    public Tarefas(){
-        idAutoIncrement++;
-        setId(idAutoIncrement);
-    }
+    // public Tarefas(){
+    //     idAutoIncrement++;
+    //     setId(idAutoIncrement);
+    // }
 
 
     public void setDescricao(String descricao){
@@ -41,6 +46,15 @@ public class Tarefas{
         this.id = id;
     }
 
+    public static void adicionar(Tarefas tarefa){
+        JPA.em().persist(tarefa);
+    }
+
+    public static List<Tarefas> listar(){
+        Query query = JPA.em().createQuery("select e from Tarefas e");
+        List<Tarefas> tarefas = query.getResultList();
+        return tarefas;
+    }
 
     public static Tarefas toTarefa(String descricao){
         Tarefas tarefa = new Tarefas();

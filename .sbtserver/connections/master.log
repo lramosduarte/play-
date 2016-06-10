@@ -1,56 +1,25 @@
-New log file opened at Fri Jun 10 09:16:29 BRT 2016 by 11319@sisqualis-pc
-Taking next connection to: 43236
-New client attempting to connect on port: 38186-43236
-  Address = /127.0.1.1:43236
-This client on port 38186 has uuid 14aaff47-5cbb-4102-b8ee-e27977366524 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-14aaff47-5cbb-4102-b8ee-e27977366524
-Taking next connection to: 43236
-New client attempting to connect on port: 38188-43236
-  Address = /127.0.1.1:43236
-Handshake exception on socket: 38188
-sbt.impl.ipc.HandshakeException: Unable to perform handshake
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
-	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
-	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
-Caused by: java.io.EOFException
-	at java.io.DataInputStream.readInt(DataInputStream.java:392)
-	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
-	... 2 more
-Taking next connection to: 43236
-New client attempting to connect on port: 38190-43236
-  Address = /127.0.1.1:43236
-This client on port 38190 has uuid 103bf40d-d330-4aff-a03a-99e6abfd519e configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-14aaff47-5cbb-4102-b8ee-e27977366524, activator-103bf40d-d330-4aff-a03a-99e6abfd519e
-Taking next connection to: 43236
-New client attempting to connect on port: 38194-43236
-  Address = /127.0.1.1:43236
-Handshake exception on socket: 38194
-sbt.impl.ipc.HandshakeException: Unable to perform handshake
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
-	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
-	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
-Caused by: java.net.SocketException: Connection reset
-	at java.net.SocketInputStream.read(SocketInputStream.java:209)
-	at java.net.SocketInputStream.read(SocketInputStream.java:141)
-	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
-	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)
-	at java.io.DataInputStream.readInt(DataInputStream.java:387)
-	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
-	... 2 more
-Taking next connection to: 43236
-New client attempting to connect on port: 38196-43236
-  Address = /127.0.1.1:43236
-This client on port 38196 has uuid 6b1aadba-ceb1-425e-ad7a-0a8c5408a9b5 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: activator-14aaff47-5cbb-4102-b8ee-e27977366524, activator-103bf40d-d330-4aff-a03a-99e6abfd519e, play-fork-run-6b1aadba-ceb1-425e-ad7a-0a8c5408a9b5
-Taking next connection to: 43236
+New log file opened at Fri Jun 10 16:36:11 BRT 2016 by 19175@sisqualis-pc
+Taking next connection to: 32902
+New client attempting to connect on port: 55614-32902
+  Address = /127.0.1.1:32902
+This client on port 55614 has uuid 54c187dc-15e4-40ee-beb8-5cab90b38047 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-54c187dc-15e4-40ee-beb8-5cab90b38047
+Taking next connection to: 32902
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43236
+Taking next connection to: 32902
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43236
+Taking next connection to: 32902
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 43236
+Taking next connection to: 32902
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 32902
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 32902
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 32902

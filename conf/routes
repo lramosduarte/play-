@@ -5,7 +5,7 @@
 #rotas das tarefas
 GET     /tarefas                    controllers.TarefasController.tarefas
 POST    /tarefas                    controllers.TarefasController.adicionar
-POST    /tarefas/remover/:id        controllers.TarefasController.remover(id: Long)
+POST    /tarefas/:id/remover        controllers.TarefasController.remover(id: Long)
 
 
 # An example controller showing a sample home page
