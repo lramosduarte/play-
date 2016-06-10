@@ -17,7 +17,7 @@ public class TarefasController extends Controller {
 
 
     public Result tarefas() {
-        Logger.debug("Pagina inicial");
+        Logger.info("Pagina inicial");
         return ok(tarefas.render(Tarefas.listar()));
     }
 
@@ -29,7 +29,7 @@ public class TarefasController extends Controller {
     }
 
     public Result remover(Long id){
-        Logger.debug("Teste de rota para remover tarefa");
+        Logger.info("Teste de rota para remover tarefa");
         Tarefas.remover(id);
         return redirect(routes.TarefasController.tarefas());
     }

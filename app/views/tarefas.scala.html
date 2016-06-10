@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="/assets/stylesheets/materialize.css">
+        <link rel="stylesheet" href="/assets/stylesheets/main.css">
 
         <title></title>
     </head>
@@ -14,7 +15,11 @@
         <div class="container">
             @main("Tarefas"){
                 <div class="row">
-                    <h1>Tarefas: @tarefas.size()</h1>
+                    <div class="col s6">
+                        <h1>
+                            Lista de tarefas
+                        </h1>
+                    </div>
                 </div>
                 <div class="row">
                     <ul class="collection">
@@ -29,7 +34,7 @@
                                 <span class="flow-text">@item.getDescricao</span>
                                 @form(routes.TarefasController.remover(item.getId)) {
                                     <div class="secondary-content">
-                                        <button type="submit" class="" name="button">
+                                        <button type="submit" class="remover" name="button">
                                             <i class="material-icons">delete</i>
                                         </button>
                                     </div>
@@ -44,13 +49,22 @@
                             <input type="text" name="descricao" autofocus id="descricao" placeholder="Digite uma tarefa para adicinar" value="">
                             <label for="descricao">Descrição da tarefa</label>
                         </div>
-                        <div class="input-field col s6">
-                            <button type="submit" class="btn-floating btn-large waves-effect waves-light red" name="button">
+                        <div class="input-field col s3">
+                            <button type="submit" class="btn-floating btn waves-effect waves-light red" name="button">
                                 <i class="material-icons right">add</i>
                             </button>
                         </div>
+                        <div class="input-field col s3">
+                            <span class="" style="font-size: x-large;">
+                                Pendentes:
+                                <span class="">
+                                    @tarefas.size()
+                                </span>
+                            </span>
+                        </div>
                     }
                 </div>
+
             }
         </div>
     </body>

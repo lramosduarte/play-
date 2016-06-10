@@ -50,6 +50,7 @@ public class Tarefas {
 
 
     public static void adicionar(Tarefas tarefa){
+        Logger.info("adicinar uma tarefa");
         JPA.em().persist(tarefa);
     }
 
@@ -57,11 +58,12 @@ public class Tarefas {
     public static void remover(Long id){
         Tarefas tarefa = JPA.em().find(Tarefas.class, id);
         JPA.em().remove(tarefa);
-        Logger.debug("tarefa deletada", tarefa);
+        Logger.info("tarefa deletada", tarefa);
     }
 
 
     public static List<Tarefas> listar(){
+        Logger.info("listando tarefas");
         Query query = JPA.em().createQuery("select e from Tarefas e");
         List<Tarefas> tarefas = query.getResultList();
         return tarefas;
