@@ -1,0 +1,34 @@
+@(tarefas: ArrayList[Tarefas])
+@import helper._
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        @main("Tarefas"){
+            <h1>Tarefas: @tarefas.size()</h1>
+            <ul>
+                @if(tarefas.isEmpty()){
+                    <li>
+                        Nenhuma Tarefa
+                    </li>
+                }
+                @for(item <- tarefas){
+                    <li>
+                        <span class="">@item.getId</span> @item.getDescricao 
+                    </li>
+                }
+            </ul>
+
+            @form(action = routes.TarefasController.adicionar()) {
+
+                <input type="text" name="descricao" value="">
+
+                <input type="submit" value="adicionar">
+            }
+        }
+    </body>
+</html>
