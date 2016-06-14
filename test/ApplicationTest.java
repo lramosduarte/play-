@@ -1,5 +1,3 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import models.Tarefas;
@@ -10,6 +8,7 @@ import play.twirl.api.Content;
 
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -21,10 +20,9 @@ import static org.junit.Assert.*;
 public class ApplicationTest extends WithApplication{
 
     @Test
-    public void TarefasViewTemplate(){
+    public void semTarefasTemplate(){
         List<Tarefas> tarefas = new ArrayList<Tarefas>();
         Content html = views.html.tarefas.render(tarefas);
         assertTrue(contentAsString(html).contains("Nenhuma"));
     }
-
 }

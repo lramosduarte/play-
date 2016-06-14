@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import play.data.DynamicForm;
 import play.data.format.Formats;
 import play.data.validation.Constraints.*;
@@ -119,6 +120,12 @@ public class Tarefas {
         tarefa.setId(id);
         tarefa.setPrazo(form.get("tarefaPrazo"));
         tarefa.setDescricao(form.get("tarefaDescricao"));
+        return tarefa;
+    }
+
+    public static Tarefas toTarefa(JsonNode json){
+        Tarefas tarefa = Tarefas.toTarefa(json.findPath("descricao").textValue());
+        tarefa.setPrazo(json.findPath("prazo").textValue());
         return tarefa;
     }
 

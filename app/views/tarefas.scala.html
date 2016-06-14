@@ -33,6 +33,7 @@
                             <li class="collection-item" style="border-bottom: none">
                                 <div class="col s12">
                                     @form(routes.TarefasController.modificar(item.getId)) {
+                                        <span id="tarefaId" name="tarefaId" style="display: none">@item.getId</span>
                                         <div class="input-field col s6">
                                             <input type="text"
                                                    class="flow-text tarefa"
@@ -57,7 +58,7 @@
                                         </div>
                                         <div class="input-field col s1">
                                             <div class="secondary-content">
-                                                <button type="submit" class="remover" name="button">
+                                                <button type="button" class="waves-effect waves-teal btn-flat modificar" id="modificar" name="modificar">
                                                     <i class="material-icons">update</i>
                                                 </button>
                                             </div>
