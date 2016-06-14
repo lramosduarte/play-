@@ -1,5 +1,6 @@
 @(tarefas: List[Tarefas])
 @import helper._
+@import java.util.Date
 
 <!DOCTYPE html>
 <html>
@@ -29,16 +30,49 @@
                             </li>
                         }
                         @for(item <- tarefas){
-                            <li class="collection-item">
-                                <span class="" style="display: none;">@item.getId</span>
-                                <span class="flow-text">@item.getDescricao</span>
-                                @form(routes.TarefasController.remover(item.getId)) {
-                                    <div class="secondary-content">
-                                        <button type="submit" class="remover" name="button">
-                                            <i class="material-icons">delete</i>
-                                        </button>
+                            <li class="collection-item" style="border-bottom: none">
+                                <div class="col s12">
+                                    @form(routes.TarefasController.modificar(item.getId)) {
+                                        <div class="input-field col s6">
+                                            <input type="text"
+                                                   class="flow-text tarefa"
+                                                   name="tarefaDescricao"
+                                                   id="tarefaDescricao"
+                                                   value="@item.getDescricao" readonly>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            @if(item.getPrazo != null){
+                                                <input type="date"
+                                                       class="datepicker tarefa "
+                                                       name="tarefaPrazo"
+                                                       id="tarefaPrazo"
+                                                       value='@item.getPrazo.format("yyyy-MM-dd")' readonly />
+                                            } else {
+                                                <input type="date"
+                                                       class="datepicker tarefa "
+                                                       name="tarefaPrazo"
+                                                       id="tarefaPrazo"
+                                                       value="" readonly />
+                                                }
+                                        </div>
+                                        <div class="input-field col s1">
+                                            <div class="secondary-content">
+                                                <button type="submit" class="remover" name="button">
+                                                    <i class="material-icons">update</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="input-field col s1">
+                                        @form(routes.TarefasController.remover(item.getId)) {
+                                            <div class="secondary-content">
+                                                <button type="submit" class="remover" name="button">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
-                                }
+                                </div>
                             </li>
                         }
                     </ul>
@@ -64,10 +98,10 @@
                         </div>
                     }
                 </div>
-
             }
         </div>
     </body>
 </html>
 <script src="@routes.Assets.at("/public/javascripts", "jquery-2.1.1.min.js")"></script>
 <script src="@routes.Assets.at("/public/javascripts", "materialize.js")"></script>
+<script src="@routes.Assets.at("/public/javascripts", "main.js")"></script>

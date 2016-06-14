@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   javaWs,
   javaJpa,
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final", // replace by your jpa implementation
-  "org.postgresql" % "postgresql" % "9.4-1206-jdbc42"
+  "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
+  "org.mockito" % "mockito-core" % "1.9.5"
 )
 
 

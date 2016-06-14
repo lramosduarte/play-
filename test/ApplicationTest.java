@@ -1,19 +1,11 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import models.Tarefas;
 import org.junit.*;
 
-import play.mvc.*;
 import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
 import play.twirl.api.Content;
 
 import static play.test.Helpers.*;
@@ -26,20 +18,13 @@ import static org.junit.Assert.*;
  * If you are interested in mocking a whole application, see the wiki for more details.
  *
  */
-public class ApplicationTest {
+public class ApplicationTest extends WithApplication{
 
     @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertEquals(2, a);
+    public void TarefasViewTemplate(){
+        List<Tarefas> tarefas = new ArrayList<Tarefas>();
+        Content html = views.html.tarefas.render(tarefas);
+        assertTrue(contentAsString(html).contains("Nenhuma"));
     }
-
-    @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
-        assertEquals("text/html", html.contentType());
-        assertTrue(html.body().contains("Your new application is ready."));
-    }
-
 
 }

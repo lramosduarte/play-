@@ -1,7 +1,13 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
+import play.data.DynamicForm;
+import play.data.format.Formats;
 import play.data.validation.Constraints.*;
 import play.Logger;
 import play.db.jpa.JPA;
@@ -13,9 +19,6 @@ import javax.persistence.*;
 @Table(name="TAREFAS")
 public class Tarefas {
 
-    // private static Long idAutoIncrement = 0L;
-
-
     @Id
     @GeneratedValue
     private Long id;
@@ -23,11 +26,7 @@ public class Tarefas {
     @Required
     private String descricao;
 
-    // public Tarefas(){
-    //     idAutoIncrement++;
-    //     setId(idAutoIncrement);
-    // }
-
+    private Date prazo;
 
     public void setDescricao(String descricao){
         this.descricao = descricao;
@@ -49,9 +48,47 @@ public class Tarefas {
     }
 
 
+    public void setPrazo(Date prazo){
+        Logger.info("atualizar a data");
+        this.prazo = prazo;
+    }
+
+
+    public void setPrazo(String prazo){
+        SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
+        formatarData.setLenient(false);
+        try {
+            this.prazo = formatarData.parse(prazo);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    public Date getPrazo(){
+        return prazo;
+    }
+
+
+    public void setTarefa(Tarefas tarefa){
+        this.descricao = tarefa.getDescricao();
+        this.prazo = tarefa.getPrazo();
+    }
+
+
     public static void adicionar(Tarefas tarefa){
         Logger.info("adicinar uma tarefa");
         JPA.em().persist(tarefa);
+    }
+
+
+    public static Tarefas update(Long id, Tarefas novosDados){
+        Tarefas tarefa = JPA.em().find(Tarefas.class, id);
+        if(tarefa != null){
+            tarefa.setTarefa(novosDados);
+            return novosDados;
+        }
+        return tarefa;
     }
 
 
@@ -64,11 +101,10 @@ public class Tarefas {
 
     public static List<Tarefas> listar(){
         Logger.info("listando tarefas");
-        Query query = JPA.em().createQuery("select e from Tarefas e");
+        Query query = JPA.em().createQuery("select e from Tarefas e order by id");
         List<Tarefas> tarefas = query.getResultList();
         return tarefas;
     }
-
 
 
     public static Tarefas toTarefa(String descricao){
@@ -76,4 +112,14 @@ public class Tarefas {
         tarefa.descricao = descricao;
         return tarefa;
     }
+
+
+    public static Tarefas toTarefa(Long id, DynamicForm form){
+        Tarefas tarefa = new Tarefas();
+        tarefa.setId(id);
+        tarefa.setPrazo(form.get("tarefaPrazo"));
+        tarefa.setDescricao(form.get("tarefaDescricao"));
+        return tarefa;
+    }
+
 }

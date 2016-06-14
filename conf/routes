@@ -6,8 +6,7 @@
 GET     /tarefas                    controllers.TarefasController.tarefas
 POST    /tarefas                    controllers.TarefasController.adicionar
 POST    /tarefas/:id/remover        controllers.TarefasController.remover(id: Long)
-
-
+POST    /tarefas/:id                controllers.TarefasController.modificar(id: Long)
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
