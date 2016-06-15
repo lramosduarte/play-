@@ -1,6 +1,9 @@
 package models;
 
+import play.db.jpa.JPA;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by sisqualis on 15/06/16.
@@ -39,5 +42,13 @@ public class Detalhes implements java.io.Serializable {
 
     public String getComentario(){
         return comentario;
+    }
+
+
+    public static List<Detalhes> detalhes(Long tarefa){
+        Query query= JPA.em().createQuery("select e from Detalhes e "
+                        + "where tarefa_id = " + tarefa);
+
+        return query.getResultList();
     }
 }

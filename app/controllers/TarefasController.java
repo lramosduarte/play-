@@ -8,11 +8,9 @@ import play.data.Form;
 import play.Logger;
 import play.db.jpa.Transactional;
 
-import sun.rmi.runtime.Log;
 import views.html.*;
 import models.Tarefas;
 
-import java.util.Date;
 
 @Transactional
 public class TarefasController extends Controller {

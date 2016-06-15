@@ -1,0 +1,37 @@
+@(tarefa: Tarefas, detalhes: List[Detalhes])
+@import helper._
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/stylesheets/materialize.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+
+    <title></title>
+</head>
+<body>
+<div class="container">
+    <hi>
+        @tarefa.getDescricao
+    </hi>
+
+    <ul class="collection">
+        @if(detalhes.isEmpty()){
+            <li class="collection-item">Sem comentários</li>
+        } else {
+            @for(comentario <- detalhes){
+                <li class="collection-item">@comentario.getComentario</li>
+            }
+        }
+    </ul>
+
+    <a href="/tarefas">
+        <i class="material-icons">keyboard_backspace</i>
+    </a>
+</div>
+</body>
+</html>
+<script src="@routes.Assets.at("/public/javascripts", "jquery-2.1.1.min.js")"></script>
+<script src="@routes.Assets.at("/public/javascripts", "materialize.js")"></script>

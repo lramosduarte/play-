@@ -99,6 +99,11 @@ public class Tarefas implements java.io.Serializable{
     }
 
 
+    public static Tarefas tarefa(Long id){
+        return JPA.em().find(Tarefas.class, id);
+    }
+
+
     public static void remover(Long id){
         Tarefas tarefa = JPA.em().find(Tarefas.class, id);
         JPA.em().remove(tarefa);
