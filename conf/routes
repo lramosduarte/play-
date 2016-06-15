@@ -8,6 +8,9 @@ POST    /tarefas                    controllers.TarefasController.adicionar
 POST    /tarefas/:id/remover        controllers.TarefasController.remover(id: Long)
 POST    /tarefas/:id                controllers.TarefasController.modificar(id: Long)
 
+#rotas dos detalhes
+GET     /tarefas/:id/detalhes       controllers.TarefaDetalhes.detalhes(id: Long)
+
 #rotas de tarefas JSON
 GET     /tarefasJson                controllers.JsonController.tarefas
 POST    /tarefasJson                controllers.JsonController.update

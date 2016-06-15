@@ -1,14 +1,11 @@
 package models;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import play.data.DynamicForm;
-import play.data.format.Formats;
 import play.data.validation.Constraints.*;
 import play.Logger;
 import play.db.jpa.JPA;
@@ -18,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="TAREFAS")
-public class Tarefas {
+public class Tarefas implements java.io.Serializable{
 
     @Id
     @GeneratedValue
@@ -28,6 +25,15 @@ public class Tarefas {
     private String descricao;
 
     private Date prazo;
+
+    @OneToMany(mappedBy = "tarefa")
+    public List<Detalhes> detalhes;
+
+
+    public Tarefas(){
+        super();
+    }
+
 
     public void setDescricao(String descricao){
         this.descricao = descricao;
