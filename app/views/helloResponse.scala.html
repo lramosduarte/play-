@@ -1,0 +1,7 @@
+@(message: String)
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <helloResponse xmlns="http://ws/">@message</helloResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

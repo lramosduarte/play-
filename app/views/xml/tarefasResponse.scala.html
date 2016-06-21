@@ -1,0 +1,9 @@
+@(message: String)
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <TarefasResponse xmlns="http://ws/">
+            @message
+        </TarefasResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

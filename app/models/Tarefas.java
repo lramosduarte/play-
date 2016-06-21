@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,11 +13,16 @@ import play.Logger;
 import play.db.jpa.JPA;
 
 import javax.persistence.*;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Entity
 @Table(name="TAREFAS")
-public class Tarefas implements java.io.Serializable{
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Tarefas implements Serializable {
 
     @Id
     @GeneratedValue
@@ -119,6 +126,17 @@ public class Tarefas implements java.io.Serializable{
     }
 
 
+    public static String listarXML() throws JAXBException{
+        JAXBContext context = JAXBContext.newInstance(ListaTarefas.class);
+        StringWriter sw = new StringWriter();
+        Marshaller mars = context.createMarshaller();
+        mars.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        mars.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        mars.marshal(new ListaTarefas(Tarefas.listar()), sw);
+        return sw.toString();
+    }
+
+
     public static Tarefas toTarefa(String descricao){
         Tarefas tarefa = new Tarefas();
         tarefa.descricao = descricao;
@@ -139,5 +157,4 @@ public class Tarefas implements java.io.Serializable{
         tarefa.setPrazo(json.findPath("prazo").textValue());
         return tarefa;
     }
-
 }

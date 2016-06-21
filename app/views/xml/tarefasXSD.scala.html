@@ -1,0 +1,15 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="tarefas">
+        <xsd:sequence>
+            <xsd:complexType name="detalhes">
+                <xsd:sequence>
+                    <xsd:element name="comentario" minOccurs="1" maxOccurs="1" nillable="false"/>
+                    <xsd:element name="id" minOccurs="1" maxOccurs="1" nillable="false"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="id" type="xsd:int" minOccurs="1" maxOccurs="1" nillable="false"/>
+            <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+            <xsd:element name="prazo" type="xsd:date" minOccurs="1" maxOccurs="1" nillable="false"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

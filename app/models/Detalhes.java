@@ -3,6 +3,7 @@ package models;
 import play.db.jpa.JPA;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="DETALHES")
-public class Detalhes implements java.io.Serializable {
+public class Detalhes implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;

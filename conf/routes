@@ -15,6 +15,14 @@ GET     /tarefas/:id/detalhes       controllers.TarefaDetalhes.detalhes(id: Long
 GET     /tarefasJson                controllers.JsonController.tarefas
 POST    /tarefasJson                controllers.JsonController.update
 
+#WebServices
+GET     /services                   controllers.WSController.index
+GET     /services/TheWS             controllers.WSController.wsdl(wsdl)
+POST    /services/TheWS             controllers.WSController.router
+
+GET     /schemas/tarefas.xsd        @controllers.WSController.tarefasXSD
+GET     /services/tarefas           @controllers.WSController.tarefasWSDL(wsdl)
+POST    /services/tarefas           @controllers.WSController.listaTarefas
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
