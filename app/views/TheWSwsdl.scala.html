@@ -27,10 +27,11 @@
         </xsd:schema>
     </types>
     <message name="hello">
-        <part name="parameters" element="tns:hello" />
+        <part name="argumento" element="xsd:string" />
     </message>
     <message name="helloResponse">
-        <part name="parameters" element="tns:helloResponse" />
+        <part name="argumento1" element="tns:helloResponse" />
+        <part name="argumento2" element="tns:helloResponse" />
     </message>
     <portType name="TheWS">
         <operation name="hello">
