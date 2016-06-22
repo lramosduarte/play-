@@ -11,9 +11,7 @@ import play.mvc.Result;
 import views.html.TheWSwsdl;
 import views.html.helloResponse;
 import views.html.indexsoap;
-import views.html.xml.tarefasWSDL;
-import views.html.xml.tarefasResponse;
-import views.html.xml.tarefasXSD;
+import views.html.xml.*;
 
 /**
  * Created by sisqualis on 14/06/16.
@@ -47,9 +45,23 @@ public class WSController extends Controller {
     public Result listaTarefas(){
         try{
             Document documento = request().body().asXml();
-            String descricao = XPath.selectText("//descricao", documento);
-            Logger.info(descricao);
+            Logger.info("documento" + documento.toString());
+            String descricao = XPath.selectText("//argumento", documento);
+            Logger.info("argumento: " + descricao);
             return ok(tarefasResponse.render(Tarefas.listarXML()));
+        }catch (Exception ex){
+            Logger.error(ex.toString(), ex);
+            return internalServerError(ex.toString());
+        }
+    }
+
+    public Result tarefa(){
+        try{
+            Document documento = request().body().asXml();
+            Long codigo = Long.parseLong(XPath.selectText("//codigo", documento));
+            Logger.info("codigo: " + codigo);
+            Tarefas tarefa = Tarefas.tarefa(codigo);
+            return ok(tarefaResponse.render(Tarefas.toXML(tarefa)));
         }catch (Exception ex){
             Logger.error(ex.toString(), ex);
             return internalServerError(ex.toString());
