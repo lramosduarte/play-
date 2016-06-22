@@ -122,6 +122,16 @@ public class Tarefas implements Serializable {
     }
 
 
+    public String toXML() throws JAXBException{
+        JAXBContext context = JAXBContext.newInstance(Tarefas.class);
+        StringWriter sw = new StringWriter();
+        Marshaller agrupamento = context.createMarshaller();
+        agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        agrupamento.marshal(this, sw);
+        return sw.toString();
+    }
+
     public static String toXML(Tarefas tarefa) throws JAXBException{
         JAXBContext context = JAXBContext.newInstance(Tarefas.class);
         StringWriter sw = new StringWriter();

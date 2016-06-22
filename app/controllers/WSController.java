@@ -2,7 +2,6 @@ package controllers;
 
 import models.Tarefas;
 import org.w3c.dom.Document;
-import play.Logger;
 import play.db.jpa.Transactional;
 import play.libs.XPath;
 import play.mvc.Controller;
@@ -12,6 +11,8 @@ import views.html.TheWSwsdl;
 import views.html.helloResponse;
 import views.html.indexsoap;
 import views.html.xml.*;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * Created by sisqualis on 14/06/16.
@@ -30,10 +31,8 @@ public class WSController extends Controller {
     public Result router() {
         try {
             Document dom = request().body().asXml();
-            Logger.info(dom.toString());
             return ok(helloResponse.render("sault")).as("text/xml");
         } catch (Exception e) {
-            Logger.error(e.toString(), e);
             return internalServerError(e.toString());
         }
     }
@@ -44,13 +43,8 @@ public class WSController extends Controller {
 
     public Result listaTarefas(){
         try{
-            Document documento = request().body().asXml();
-            Logger.info("documento" + documento.toString());
-            String descricao = XPath.selectText("//argumento", documento);
-            Logger.info("argumento: " + descricao);
-            return ok(tarefasResponse.render(Tarefas.listarXML()));
-        }catch (Exception ex){
-            Logger.error(ex.toString(), ex);
+            return ok(tarefasResponse.render(Tarefas.listarXML())).as("text/xml");
+        }catch (JAXBException ex){
             return internalServerError(ex.toString());
         }
     }
@@ -59,12 +53,14 @@ public class WSController extends Controller {
         try{
             Document documento = request().body().asXml();
             Long codigo = Long.parseLong(XPath.selectText("//codigo", documento));
-            Logger.info("codigo: " + codigo);
             Tarefas tarefa = Tarefas.tarefa(codigo);
-            return ok(tarefaResponse.render(Tarefas.toXML(tarefa)));
+            return ok(tarefaResponse.render(tarefa.toXML())).as("text/xml");
+        }catch (NullPointerException ex){
+            return internalServerError(tarefaResponse.render(
+                    "Erro ao gerar retornar a tarefa,"
+                    + " o codigo pode estar incorreto")).as("text/xml");
         }catch (Exception ex){
-            Logger.error(ex.toString(), ex);
-            return internalServerError(ex.toString());
+            return internalServerError(tarefaResponse.render(ex.toString()));
         }
     }
 
