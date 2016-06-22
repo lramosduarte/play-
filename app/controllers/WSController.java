@@ -68,6 +68,13 @@ public class WSController extends Controller {
         }
     }
 
+    public Result inserirTarefa(){
+        Document documento = request().body().asXml();
+        String descricao = XPath.selectText("//descricao", documento);
+        Tarefas.adicionar(Tarefas.toTarefa(descricao));
+        return ok();
+    }
+
     public Result tarefasXSD(){
         return ok(tarefasXSD.render()).as("text/xml");
     }

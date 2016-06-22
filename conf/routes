@@ -24,6 +24,7 @@ GET     /schemas/tarefas.xsd        @controllers.WSController.tarefasXSD
 GET     /services/tarefas           @controllers.WSController.tarefasWSDL(wsdl)
 POST    /services/tarefas           @controllers.WSController.listaTarefas
 POST    /services/tarefa            @controllers.WSController.tarefa
+POST    /services/inserirtarefa     @controllers.WSController.inserirTarefa
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
