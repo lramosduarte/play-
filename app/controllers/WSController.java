@@ -46,8 +46,9 @@ public class WSController extends Controller {
 
     public Result listaTarefas(){
         try{
-            Document dom = request().body().asXml();
-            Logger.info(dom.toString());
+            Document documento = request().body().asXml();
+            String descricao = XPath.selectText("//descricao", documento);
+            Logger.info(descricao);
             return ok(tarefasResponse.render(Tarefas.listarXML()));
         }catch (Exception ex){
             Logger.error(ex.toString(), ex);
