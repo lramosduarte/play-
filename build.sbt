@@ -25,5 +25,6 @@ libraryDependencies += "org.apache.cxf" % "cxf-rt-bindings-soap" % "3.1.2"
 
 libraryDependencies += "org.apache.cxf" % "cxf-rt-frontend-jaxws" % "3.1.2"
 
+libraryDependencies += "org.eclipse.persistence" % "eclipselink" % "2.5.0"
 
 fork in run := true

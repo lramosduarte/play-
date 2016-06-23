@@ -8,16 +8,25 @@
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         targetNamespace="http://ws/"
         name="TarefasWS">
+    <wsdl:documentation>
+        Documento de deinifição do WebService Tarefas.
+    </wsdl:documentation>
     <wsdl:types>
         <xsd:schema version="1.0" targetNamespace="http://ws/">
             <xsd:element name="tarefasRequest" type="tns:tarefasRequest" />
             <xsd:element name="tarefasResponse" type="tns:tarefasResponse" />
             <xsd:complexType name="tarefasRequest">
+                <wsdl:documentation>
+                    Definiçção do request da listagem de tarefas
+                </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="argumento" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="tarefasResponse">
+                <wsdl:documentation>
+                    Definiçção do response, listando as tarefas ativdas em XML
+                </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="return" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
@@ -25,17 +34,26 @@
             <xsd:element name="tarefaRequest" type="tns:tarefaRequest" />
             <xsd:element name="tarefaResponse" type="tns:tarefaResponse" />
             <xsd:complexType name="tarefaRequest">
+                <wsdl:documentation>
+                    Definiçção do request, passando o id da tarefa como parametro
+                </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="codigo" type="xsd:string" minOccurs="1" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="tarefaResponse">
+                <wsdl:documentation>
+                    Definiçção do response, retornando a tarefa pesquisa por XML
+                </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="return" type="xsd:string" minOccurs="0" />
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="inserirTarefa" type="tns:inserirTarefa" />
             <xsd:complexType name="inserirTarefa">
+                <wsdl:documentation>
+                    Definiçção do request(one-way) para inserir uma nova tarefa
+                </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="descricao" type="xsd:string" minOccurs="1" />
                 </xsd:sequence>

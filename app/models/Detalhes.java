@@ -3,6 +3,8 @@ package models;
 import play.db.jpa.JPA;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="DETALHES")
+@XmlRootElement
 public class Detalhes implements Serializable {
 
     @Id
@@ -32,6 +35,7 @@ public class Detalhes implements Serializable {
     }
 
 
+    @XmlAttribute
     public Long getId(){
         return id;
     }
@@ -41,7 +45,7 @@ public class Detalhes implements Serializable {
         this.comentario = comentario;
     }
 
-
+    @XmlAttribute
     public String getComentario(){
         return comentario;
     }
