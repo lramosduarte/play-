@@ -12,6 +12,7 @@ import play.db.jpa.JPA;
 import java.lang.reflect.Field;
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -145,9 +146,10 @@ public class Tarefas implements Serializable {
     public String modificarXML(StringWriter xml) throws TransformerException, JAXBException, ParserConfigurationException, SAXException, IOException {
         Document documento = parseDocument(xml);
         Tarefas classeTarefa = new Tarefas();
+
         Field[] campos = classeTarefa.getClass().getDeclaredFields();
         for(Field campo : campos){
-            adicionarAtributo(documento, campo.getName(),
+            adicionarAtributo(documento, campo.getName(), "Tipo",
                     campo.getType().getSimpleName().toString());
         }
         return newXML(documento);
@@ -198,7 +200,6 @@ public class Tarefas implements Serializable {
     private Document parseDocument(StringWriter string) throws IOException, SAXException, ParserConfigurationException {
         InputSource stream = new InputSource(new StringReader(string.toString()));
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        docFactory.setNamespaceAware(true);
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         return docBuilder.parse(stream);
     }
@@ -207,20 +208,14 @@ public class Tarefas implements Serializable {
         StringWriter sw = new StringWriter();
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformar = factory.newTransformer();
-        transformar.setOutputProperty(OutputKeys.METHOD, "xml");
-        transformar.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformar.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         transformar.transform(new DOMSource(documento), new StreamResult(sw));
         return sw.toString();
     }
 
-    private void adicionarAtributo(Document documento, String tag, String tipo){
+    private void adicionarAtributo(Document documento, String tag, String tipo,String tipoValor){
         NodeList tarefas = documento.getElementsByTagName(tag);
         for(int i = 0; i < tarefas.getLength(); i++){
-            NamedNodeMap atributo = tarefas.item(i).getAttributes();
-            Attr novotipo = documento.createAttribute("Tipo");
-            novotipo.setValue(tipo);
-            atributo.setNamedItem(novotipo);
+            ((Element)tarefas.item(i)).setAttribute(tipo, tipoValor);
         }
     }
 }
