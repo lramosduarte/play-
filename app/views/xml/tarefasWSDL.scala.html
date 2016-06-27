@@ -17,7 +17,7 @@
             <xsd:element name="tarefasResponse" type="tns:tarefasResponse" />
             <xsd:complexType name="tarefasRequest">
                 <wsdl:documentation>
-                    Definiçção do request da listagem de tarefas
+                    Definição do request da listagem de tarefas
                 </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="argumento" type="xsd:string" minOccurs="0" />
@@ -25,7 +25,7 @@
             </xsd:complexType>
             <xsd:complexType name="tarefasResponse">
                 <wsdl:documentation>
-                    Definiçção do response, listando as tarefas ativdas em XML
+                    Definição do response, listando as tarefas ativdas em XML
                 </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="return" type="xsd:string" minOccurs="0" />
@@ -35,7 +35,7 @@
             <xsd:element name="tarefaResponse" type="tns:tarefaResponse" />
             <xsd:complexType name="tarefaRequest">
                 <wsdl:documentation>
-                    Definiçção do request, passando o id da tarefa como parametro
+                    Definição do request, passando o id da tarefa como parametro
                 </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="codigo" type="xsd:string" minOccurs="1" />
@@ -43,7 +43,7 @@
             </xsd:complexType>
             <xsd:complexType name="tarefaResponse">
                 <wsdl:documentation>
-                    Definiçção do response, retornando a tarefa pesquisa por XML
+                    Definição do response, retornando a tarefa pesquisa por XML
                 </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="return" type="xsd:string" minOccurs="0" />
@@ -52,7 +52,7 @@
             <xsd:element name="inserirTarefa" type="tns:inserirTarefa" />
             <xsd:complexType name="inserirTarefa">
                 <wsdl:documentation>
-                    Definiçção do request(one-way) para inserir uma nova tarefa
+                    Definição do request(one-way) para inserir uma nova tarefa
                 </wsdl:documentation>
                 <xsd:sequence>
                     <xsd:element name="descricao" type="xsd:string" minOccurs="1" />
@@ -61,6 +61,9 @@
             <xsd:element name="string" type="xsd:string" minOccurs="0" />
         </xsd:schema>
     </wsdl:types>
+    <wsdl:documentation>
+        define as mensagens para os portypes
+    </wsdl:documentation>
     <wsdl:message name="tarefasRequest">
         <part name="parameters" element="tns:tarefasRequest" />
     </wsdl:message>
@@ -77,6 +80,9 @@
         <part name="parameters" element="tns:inserirTarefa" />
     </wsdl:message>
     <wsdl:portType name="WSListaTarefas">
+        <wsdl:documentation>
+            define qual mensagem é de entrada/saida
+        </wsdl:documentation>
         <wsdl:operation name="tarefas">
             <wsdl:input message="tns:tarefasRequest" />
             <wsdl:output message="tns:tarefasResponse" />
@@ -94,6 +100,9 @@
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="TarefasPortBinding" type="tns:WSListaTarefas">
+        <wsdl:documentation>
+            define qual portype é usado no bind e qual seu url
+        </wsdl:documentation>
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
                       style="document" />
         <wsdl:operation name="tarefas">
@@ -135,6 +144,9 @@
     <wsdl:service name="WSTarefasService">
         <wsdl:port name="WSTarefasPort" binding="tns:TarefasPortBinding">
             <soap:address location="http://localhost:9000/services/tarefas" />
+            <wsdl:documentation>
+                Bind do endpoint
+            </wsdl:documentation>
         </wsdl:port>
         <wsdl:port name="WSTarefaPort" binding="tns:TarefaPortBinding">
             <soap:address location="http://localhost:9000/services/tarefa" />

@@ -32,15 +32,14 @@ public class Envelope {
 
     public String gerarEnvelope(String xml) throws SOAPException, TransformerException {
         body.addTextNode(xml);
-        Document documento = formatar();
-        DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
-                .getImplementation();
-        LSSerializer serializer = documentImplementacao.createLSSerializer();
-        String newXml = serializer.writeToString(documento);
-        return newXml.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+        return serializar();
     }
     public String gerarEnvelope(Document xml) throws SOAPException, TransformerException {
         body.addDocument(xml);
+        return serializar();
+    }
+
+    private String serializar() throws TransformerException, SOAPException {
         Document documento = formatar();
         DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
                 .getImplementation();

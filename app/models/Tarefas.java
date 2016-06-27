@@ -138,9 +138,9 @@ public class Tarefas implements Serializable {
 
     public String toXML() throws JAXBException, ParserConfigurationException, TransformerException, SAXException, IOException, SOAPException {
         String xml = agrupar(this);
-        /*Envelope envelopeSoap = new Envelope();
-        return envelopeSoap.gerarEnvelope(xml.toString());*/
-        return newXml(xml);
+        Envelope envelopeSoap = new Envelope();
+        return envelopeSoap.gerarEnvelope(xml.toString());
+        //return newXml(xml);
     }
 
     public String newXml(String xml) throws ParserConfigurationException, SAXException, IOException, TransformerException, JAXBException, SOAPException {
