@@ -36,7 +36,17 @@ public class Envelope {
         DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
                 .getImplementation();
         LSSerializer serializer = documentImplementacao.createLSSerializer();
-        return serializer.writeToString(documento);
+        String newXml = serializer.writeToString(documento);
+        return newXml.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+    }
+    public String gerarEnvelope(Document xml) throws SOAPException, TransformerException {
+        body.addDocument(xml);
+        Document documento = formatar();
+        DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
+                .getImplementation();
+        LSSerializer serializer = documentImplementacao.createLSSerializer();
+        String newXml = serializer.writeToString(documento);
+        return newXml.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
     }
 
     private Document formatar() throws TransformerException, SOAPException {

@@ -1,6 +1,7 @@
 package models;
 
 import Soap.Envelope;
+import Xml.ManipularXml;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.w3c.dom.*;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -11,6 +12,7 @@ import play.Logger;
 import play.data.DynamicForm;
 import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
+import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Field;
 import javax.persistence.*;
@@ -135,26 +137,22 @@ public class Tarefas implements Serializable {
 
 
     public String toXML() throws JAXBException, ParserConfigurationException, TransformerException, SAXException, IOException, SOAPException {
-        JAXBContext context = JAXBContext.newInstance(Tarefas.class);
-        StringWriter sw = new StringWriter();
-        Marshaller agrupamento = context.createMarshaller();
-        agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        agrupamento.marshal(this, sw);
-        Envelope envelope = new Envelope();
-        return  envelope.gerarEnvelope(sw.toString());
+        String xml = agrupar(this);
+        /*Envelope envelopeSoap = new Envelope();
+        return envelopeSoap.gerarEnvelope(xml.toString());*/
+        return newXml(xml);
     }
 
-    public String newXml(StringWriter xml) throws ParserConfigurationException, SAXException, IOException, TransformerException, JAXBException {
-        Document documento = parseDocument(xml);
+    public String newXml(String xml) throws ParserConfigurationException, SAXException, IOException, TransformerException, JAXBException, SOAPException {
+        Document documento = ManipularXml.parseDocument(xml);
         Tarefas classeTarefa = new Tarefas();
-
         Field[] campos = classeTarefa.getClass().getDeclaredFields();
         for(Field campo : campos){
-            adicionarAtributo(documento, campo.getName(), "Tipo",
+            ManipularXml.adicionarAtributo(documento, campo.getName(), "Tipo",
                     campo.getType().getSimpleName().toString());
         }
-        return modificarXml(documento);
+        Envelope envelope = new Envelope();
+        return envelope.gerarEnvelope(documento);
     }
 
 
@@ -168,15 +166,12 @@ public class Tarefas implements Serializable {
 
 
     public static String listarXML() throws JAXBException, SOAPException, TransformerException {
-        JAXBContext context = JAXBContext.newInstance(ListaTarefas.class);
-        StringWriter sw = new StringWriter();
-        Marshaller agrupamento = context.createMarshaller();
-        agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        agrupamento.marshal(new ListaTarefas(Tarefas.listar()), sw);
         Envelope envelope = new Envelope();
-        return envelope.gerarEnvelope(sw.toString());
+        String xml = agrupar(new ListaTarefas(Tarefas.listar()));
+        return envelope.gerarEnvelope(xml.toString());
     }
+
+
 
 
     public static Tarefas toTarefa(String descricao){
@@ -200,26 +195,25 @@ public class Tarefas implements Serializable {
         return tarefa;
     }
 
-    private Document parseDocument(StringWriter xml) throws IOException,
-            SAXException, ParserConfigurationException {
-        InputSource stream = new InputSource(new StringReader(xml.toString()));
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-        return docBuilder.parse(stream);
+
+    private static String agrupar(ListaTarefas tarefas) throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(ListaTarefas.class);
+        StringWriter sw = new StringWriter();
+        Marshaller agrupamento = context.createMarshaller();
+        agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        agrupamento.marshal(tarefas, sw);
+        return sw.toString();
     }
 
-    private String modificarXml(Document documento) throws TransformerException, JAXBException{
-        DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
-                .getImplementation();
-        LSSerializer serializer = documentImplementacao.createLSSerializer();
-        return serializer.writeToString(documento);
-    }
 
-    private void adicionarAtributo(Document documento, String tag, String tipo,
-                                   String tipoValor){
-        NodeList tarefas = documento.getElementsByTagName(tag);
-        for(int i = 0; i < tarefas.getLength(); i++){
-            ((Element)tarefas.item(i)).setAttribute(tipo, tipoValor);
-        }
+    private static String agrupar(Tarefas tarefa) throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(Tarefas.class);
+        StringWriter sw = new StringWriter();
+        Marshaller agrupamento = context.createMarshaller();
+        agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        agrupamento.marshal(tarefa, sw);
+        return sw.toString();
     }
 }
