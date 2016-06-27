@@ -20,7 +20,6 @@ GET     /services                   controllers.WSController.index
 GET     /services/TheWS             controllers.WSController.wsdl(wsdl)
 POST    /services/TheWS             controllers.WSController.router
 
-GET     /schemas/tarefas.xsd        @controllers.WSController.tarefasXSD
 GET     /services/tarefas           @controllers.WSController.tarefasWSDL(wsdl)
 POST    /services/tarefas           @controllers.WSController.listaTarefas
 POST    /services/tarefa            @controllers.WSController.tarefa

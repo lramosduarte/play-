@@ -70,8 +70,4 @@ public class WSController extends Controller {
         Tarefas.adicionar(Tarefas.toTarefa(descricao));
         return ok();
     }
-
-    public Result tarefasXSD(){
-        return ok(tarefasXSD.render()).as("text/xml");
-    }
 }
