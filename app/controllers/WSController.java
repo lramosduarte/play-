@@ -4,6 +4,7 @@ import models.Tarefas;
 import org.w3c.dom.Document;
 import play.db.jpa.Transactional;
 import play.libs.XPath;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -13,6 +14,8 @@ import views.html.indexsoap;
 import views.html.xml.*;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.soap.SOAPException;
+import javax.xml.transform.TransformerException;
 
 /**
  * Created by sisqualis on 14/06/16.
@@ -41,26 +44,33 @@ public class WSController extends Controller {
         return ok(tarefasWSDL.render()).as("text/xml");
     }
 
+    @BodyParser.Of(BodyParser.Xml.class)
     public Result listaTarefas(){
         try{
-            return ok(tarefasResponse.render(Tarefas.listarXML())).as("text/xml");
+            return ok(Tarefas.listarXML());
         }catch (JAXBException ex){
             return internalServerError(ex.toString());
+        } catch (SOAPException e) {
+            e.printStackTrace();
+            return internalServerError(e.toString());
+        } catch (TransformerException e) {
+            e.printStackTrace();
+            return internalServerError(e.toString());
         }
     }
 
+    @BodyParser.Of(BodyParser.Xml.class)
     public Result tarefa(){
         try{
             Document documento = request().body().asXml();
             Long codigo = Long.parseLong(XPath.selectText("//codigo", documento));
             Tarefas tarefa = Tarefas.tarefa(codigo);
-            return ok(tarefaResponse.render(tarefa.toXML())).as("text/xml");
+            return ok(tarefa.toXML());
         }catch (NullPointerException ex){
-            return internalServerError(tarefaResponse.render(
-                    "Erro ao gerar retornar a tarefa,"
-                    + " o codigo pode estar incorreto")).as("text/xml");
+            return internalServerError("Erro ao gerar retornar a tarefa,"
+                    + " o codigo pode estar incorreto");
         }catch (Exception ex){
-            return internalServerError(tarefaResponse.render(ex.toString()));
+            return internalServerError(ex.toString());
         }
     }
 
