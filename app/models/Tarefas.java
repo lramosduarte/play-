@@ -1,5 +1,6 @@
 package models;
 
+import Soap.Envelope;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.w3c.dom.*;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -21,6 +22,7 @@ import javax.xml.bind.annotation.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 import javax.xml.transform.*;
 import java.io.*;
 import java.text.ParseException;
@@ -132,14 +134,15 @@ public class Tarefas implements Serializable {
     }
 
 
-    public String toXML() throws JAXBException, ParserConfigurationException, TransformerException, SAXException, IOException {
+    public String toXML() throws JAXBException, ParserConfigurationException, TransformerException, SAXException, IOException, SOAPException {
         JAXBContext context = JAXBContext.newInstance(Tarefas.class);
         StringWriter sw = new StringWriter();
         Marshaller agrupamento = context.createMarshaller();
         agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         agrupamento.marshal(this, sw);
-        return sw.toString();
+        Envelope envelope = new Envelope();
+        return  envelope.gerarEnvelope(sw.toString());
     }
 
     public String newXml(StringWriter xml) throws ParserConfigurationException, SAXException, IOException, TransformerException, JAXBException {
@@ -164,14 +167,15 @@ public class Tarefas implements Serializable {
     }
 
 
-    public static String listarXML() throws JAXBException{
+    public static String listarXML() throws JAXBException, SOAPException, TransformerException {
         JAXBContext context = JAXBContext.newInstance(ListaTarefas.class);
         StringWriter sw = new StringWriter();
         Marshaller agrupamento = context.createMarshaller();
         agrupamento.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         agrupamento.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         agrupamento.marshal(new ListaTarefas(Tarefas.listar()), sw);
-        return sw.toString();
+        Envelope envelope = new Envelope();
+        return envelope.gerarEnvelope(sw.toString());
     }
 
 
@@ -208,9 +212,7 @@ public class Tarefas implements Serializable {
         DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
                 .getImplementation();
         LSSerializer serializer = documentImplementacao.createLSSerializer();
-
         return serializer.writeToString(documento);
-
     }
 
     private void adicionarAtributo(Document documento, String tag, String tipo,
