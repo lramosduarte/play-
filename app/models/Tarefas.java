@@ -2,6 +2,8 @@ package models;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.w3c.dom.*;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import play.Logger;
@@ -12,7 +14,6 @@ import play.db.jpa.JPA;
 import java.lang.reflect.Field;
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -21,8 +22,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -143,7 +142,7 @@ public class Tarefas implements Serializable {
         return sw.toString();
     }
 
-    public String modificarXML(StringWriter xml) throws TransformerException, JAXBException, ParserConfigurationException, SAXException, IOException {
+    public String newXml(StringWriter xml) throws ParserConfigurationException, SAXException, IOException, TransformerException, JAXBException {
         Document documento = parseDocument(xml);
         Tarefas classeTarefa = new Tarefas();
 
@@ -152,7 +151,7 @@ public class Tarefas implements Serializable {
             adicionarAtributo(documento, campo.getName(), "Tipo",
                     campo.getType().getSimpleName().toString());
         }
-        return newXML(documento);
+        return modificarXml(documento);
     }
 
 
@@ -197,22 +196,25 @@ public class Tarefas implements Serializable {
         return tarefa;
     }
 
-    private Document parseDocument(StringWriter string) throws IOException, SAXException, ParserConfigurationException {
-        InputSource stream = new InputSource(new StringReader(string.toString()));
+    private Document parseDocument(StringWriter xml) throws IOException,
+            SAXException, ParserConfigurationException {
+        InputSource stream = new InputSource(new StringReader(xml.toString()));
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         return docBuilder.parse(stream);
     }
 
-    private String newXML(Document documento) throws TransformerException, JAXBException {
-        StringWriter sw = new StringWriter();
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformar = factory.newTransformer();
-        transformar.transform(new DOMSource(documento), new StreamResult(sw));
-        return sw.toString();
+    private String modificarXml(Document documento) throws TransformerException, JAXBException{
+        DOMImplementationLS documentImplementacao = (DOMImplementationLS) documento
+                .getImplementation();
+        LSSerializer serializer = documentImplementacao.createLSSerializer();
+
+        return serializer.writeToString(documento);
+
     }
 
-    private void adicionarAtributo(Document documento, String tag, String tipo,String tipoValor){
+    private void adicionarAtributo(Document documento, String tag, String tipo,
+                                   String tipoValor){
         NodeList tarefas = documento.getElementsByTagName(tag);
         for(int i = 0; i < tarefas.getLength(); i++){
             ((Element)tarefas.item(i)).setAttribute(tipo, tipoValor);
