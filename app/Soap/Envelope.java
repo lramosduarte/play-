@@ -7,8 +7,6 @@ import org.w3c.dom.ls.LSSerializer;
 import javax.xml.soap.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.stream.StreamResult;
-import java.io.StringWriter;
 
 /**
  * Created by sisqualis on 27/06/16.

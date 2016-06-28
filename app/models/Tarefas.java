@@ -4,15 +4,11 @@ import Soap.Envelope;
 import Xml.ManipularXml;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.w3c.dom.*;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSSerializer;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
-import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Field;
 import javax.persistence.*;
@@ -21,8 +17,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.SOAPException;
 import javax.xml.transform.*;
@@ -159,7 +153,7 @@ public class Tarefas implements Serializable {
 
     public static List<Tarefas> listar(){
         Logger.info("listando tarefas");
-        Query query = JPA.em().createQuery("select e from Tarefas e order by id");
+        TypedQuery<Tarefas> query = JPA.em().createQuery("select e from Tarefas e order by id", Tarefas.class);
         List<Tarefas> tarefas = query.getResultList();
         return tarefas;
     }
