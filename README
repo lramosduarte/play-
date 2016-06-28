@@ -1,5 +1,11 @@
+***Apenas um exemplo de estudo.
+
 CRUD em java usando PLAY!framework. 
 
-Apenas um exemplo de estudo.
+Utilizando JPA+Hibernate, MVC e Ajax.
 
-Utilizando MVC e Ajax.
+Foi acrescentando uma rota simulando um WebService SOAP seguindo o padrão WSDL.(Rota testada pelo Sofware SOAPUI)
+
+Requisitos
+Play 2.5+
+PostgresSQL
