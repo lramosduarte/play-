@@ -1,3 +1,4 @@
+@(host: String)
 <wsdl:definitions
         xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
         xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -106,7 +107,7 @@
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
                       style="document" />
         <wsdl:operation name="tarefas">
-            <soap:operation soapAction="http://localhost:9000/services/tarefas" />
+            <soap:operation soapAction="http://@host/services/tarefas" />
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>
@@ -119,7 +120,7 @@
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
                       style="document" />
         <wsdl:operation name="tarefa">
-            <soap:operation soapAction="http://localhost:9000/services/tarefa" />
+            <soap:operation soapAction="http://@host/services/tarefa" />
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>
@@ -132,7 +133,7 @@
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
                       style="document" />
         <wsdl:operation name="inserirTarefa">
-            <soap:operation soapAction="http://localhost:9000/services/inserirtarefa" />
+            <soap:operation soapAction="http://@host/services/inserirtarefa" />
             <wsdl:input>
                 <soap:body use="literal" />
             </wsdl:input>
@@ -143,16 +144,16 @@
     </wsdl:binding>
     <wsdl:service name="WSTarefasService">
         <wsdl:port name="WSTarefasPort" binding="tns:TarefasPortBinding">
-            <soap:address location="http://localhost:9000/services/tarefas" />
+            <soap:address location="http://@host/services/tarefas" />
             <wsdl:documentation>
                 Bind do endpoint
             </wsdl:documentation>
         </wsdl:port>
         <wsdl:port name="WSTarefaPort" binding="tns:TarefaPortBinding">
-            <soap:address location="http://localhost:9000/services/tarefa" />
+            <soap:address location="http://@host/services/tarefa" />
         </wsdl:port>
         <wsdl:port name="WSInserirTarefaPort" binding="tns:inserirTarefaPortBinding">
-            <soap:address location="http://localhost:9000/services/inserirtarefa" />
+            <soap:address location="http://@host/services/inserirtarefa" />
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

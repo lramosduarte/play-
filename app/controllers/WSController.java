@@ -41,7 +41,8 @@ public class WSController extends Controller {
     }
 
     public Result tarefasWSDL(String wsdlParam) {
-        return ok(tarefasWSDL.render()).as("text/xml");
+        String host = request().host();
+        return ok(tarefasWSDL.render(host)).as("text/xml");
     }
 
     @BodyParser.Of(BodyParser.Xml.class)
